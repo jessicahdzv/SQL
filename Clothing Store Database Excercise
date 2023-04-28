@@ -1,0 +1,28 @@
+--create clothing store database
+CREATE TABLE clothing (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, aisle INTEGER, price INTEGER);
+INSERT INTO clothing VALUES (1, "tshirts", 35, 3, 2);
+INSERT INTO clothing VALUES (2, "blouses", 17, 3, 5);
+INSERT INTO clothing VALUES (3, "jeans", 26, 7, 8);
+INSERT INTO clothing VALUES (4, "cargo shorts", 5, 8, 7);
+INSERT INTO clothing VALUES (5, "slacks", 10, 8, 9);
+INSERT INTO clothing VALUES (6, "tank tops", 45, 4, 1);
+INSERT INTO clothing VALUES (7, "jackets", 12, 6, 5);
+INSERT INTO clothing VALUES (8, "coats", 45, 6, 10);
+INSERT INTO clothing VALUES (9, "hats", 55, 9, 3);
+INSERT INTO clothing VALUES (10, "scarves", 5, 9, 2);
+INSERT INTO clothing VALUES (11, "gloves", 46, 9, 1);
+INSERT INTO clothing VALUES (12, "shorts", 46, 5, 3);
+INSERT INTO clothing VALUES (13, "socks", 99, 1, 1);
+INSERT INTO clothing VALUES (14, "bandanas", 57, 1, .50);
+INSERT INTO clothing VALUES (15, "sweaters", 6, 6, 4);
+
+--organizing based on price of item
+SELECT * FROM clothing ORDER BY price;
+
+--filtering by items with price higher than $2
+SELECT * FROM clothing
+WHERE price >= 2
+ORDER BY price;
+
+--filtering by total number of items from each aisle
+SELECT aisle, SUM(quantity) FROM clothing GROUP BY aisle;
