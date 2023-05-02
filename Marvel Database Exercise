@@ -3,10 +3,11 @@
  with popularity data from http://observationdeck.io9.com/something-i-found-marvel-character-popularity-poll-cb-1568108064 
  and power grid data from http://marvel.wikia.com/Power_Grid#Power
  Collected by: https://www.khanacademy.org/profile/Mentrasto/
- marvels Table Provided through link by Khan Academy
+ marvels Table Provided through link by Khan Academy: https://gist.github.com/pamelafox/585364b62390ea720858
  Height averages from https://www.worlddata.info/average-bodyheight.php
  */
  
+--Table provided by Khan Academy via link
 CREATE TABLE marvels (ID INTEGER PRIMARY KEY,
     name TEXT,
     popularity INTEGER,
@@ -49,18 +50,24 @@ INSERT INTO marvels VALUES(24, "Venon", 78, "Neutral", "Male", 1.90, 118, "EUA",
 INSERT INTO marvels VALUES(25, "Juggernaut", 76, "Neutral", "Male", 2.87, 862, "EUA", 2, 7, 2, 7, 1, 4);
 INSERT INTO marvels VALUES(26, "Professor X", 58, "Good", "Male", 1.83, 86, "EUA", 5, 2, 2, 2, 5, 3);
 
+--Finding maximum fighting skills
 SELECT name, MAX(fighting_Skills) FROM marvels;
 
+--Finding minimum fighting skills
 SELECT name, MIN(fighting_Skills) FROM marvels;
 
+--Finding average fighting skills by gender
 SELECT gender, AVG(fighting_Skills) FROM marvels GROUP BY gender;
 
+--Listing all female Marvel heroes
 SELECT * FROM marvels WHERE gender IN ("Female");
 
+--Listing female Marvel heroes ranked higher than a 5 in intelligence
 SELECT name FROM marvels WHERE gender IN ("Female")
     GROUP BY name
     HAVING intelligence <5;
     
+--Classifying Marvel heroes based on height
 SELECT *, height_m,
     CASE
         WHEN height_m >1.77 AND gender IN ("Male")THEN "tall"
