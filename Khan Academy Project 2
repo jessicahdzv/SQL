@@ -1,3 +1,11 @@
+/* Marvel Heroes and Villains
+ Based on the website http://marvel.wikia.com/Main_Page
+ with popularity data from http://observationdeck.io9.com/something-i-found-marvel-character-popularity-poll-cb-1568108064 
+ and power grid data from http://marvel.wikia.com/Power_Grid#Power
+ Collected by: https://www.khanacademy.org/profile/Mentrasto/
+ marvels Table Provided through link by Khan Academy
+ */
+ 
 CREATE TABLE marvels (ID INTEGER PRIMARY KEY,
     name TEXT,
     popularity INTEGER,
@@ -54,8 +62,10 @@ SELECT name FROM marvels WHERE gender IN ("Female")
     
 SELECT *, height_m,
     CASE
-        WHEN height_m >1.77 THEN "tall"
-        WHEN height_m = 1.77 THEN "average"
+        WHEN height_m >1.77 AND gender IN ("Male")THEN "tall"
+        WHEN height_m >=1.63 AND gender IN ("Female") THEN "taller than average female height"
+        WHEN height_m = 1.77 AND gender IN ("Male") THEN "average"
+        WHEN height_m=1.63 AND gender IN ("Female") THEN "average"
         ELSE "short"
     END as "height_class"
-FROM marvels
+FROM marvels;
