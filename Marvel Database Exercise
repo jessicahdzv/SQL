@@ -4,6 +4,7 @@
  and power grid data from http://marvel.wikia.com/Power_Grid#Power
  Collected by: https://www.khanacademy.org/profile/Mentrasto/
  marvels Table Provided through link by Khan Academy
+ Height averages from https://www.worlddata.info/average-bodyheight.php
  */
  
 CREATE TABLE marvels (ID INTEGER PRIMARY KEY,
