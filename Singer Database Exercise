@@ -1,3 +1,5 @@
+--In this code, I am querying information from a database of singers.
+
 --First table: Singer Information
 CREATE TABLE singers (id INTEGER PRIMARY KEY AUTOINCREMENT,
 stage_name TEXT,
