@@ -1,3 +1,4 @@
+--In this code, I'm querying data to answer specific questions regarding informtation from a Netflix database. 
 --Tables provided by Charlotte Chaze: https://bit.io/CharlotteChaze/BreakIntoTech?tab=Data
 
 --Question 1: How many movie titles are there in the database? (movies only, not tv shows) 
