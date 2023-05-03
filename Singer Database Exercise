@@ -1,0 +1,52 @@
+CREATE TABLE singers (id INTEGER PRIMARY KEY AUTOINCREMENT,
+stage_name TEXT,
+real_name TEXT,
+country TEXT,
+group_id INTEGER,
+project_id INTEGER);
+
+INSERT INTO singers VALUES (1,"RM", "Kim Namjoon", "South Korea", 1,1);
+INSERT INTO singers VALUES (2,"Suga", "Min Yoongi", "South Korea", 1,2);
+INSERT INTO singers VALUES (3,"Wonho", "Lee Hoseok", "South Korea", 2,3);
+INSERT INTO singers VALUES (4,"Joohoney", "Lee Jooheon", "South Korea", 2,4);
+INSERT INTO singers VALUES (5,"Noda Yojiro", "none", "Japan", 3,5);
+INSERT INTO singers VALUES (6,"Sam McTrusty", "none", "Scotland", 4,0);
+INSERT INTO singers VALUES (7,"Derek Sanders", "none", "USA", 5,6);
+
+CREATE TABLE groups (id INTEGER PRIMARY KEY,
+group_name TEXT,
+genre TEXT);
+
+INSERT INTO groups VALUES (1, "BTS", "hip hop");
+INSERT INTO groups VALUES (2, "Monsta x", "hip hop");
+INSERT INTO groups VALUES (3, "Radwimps", "rock");
+INSERT INTO groups VALUES (4, "Twin Atlantic", "rock");
+INSERT INTO groups VALUES (5, "Mayday Parade", "pop punk");
+
+CREATE TABLE side_projects (id INTEGER PRIMARY KEY,
+project_name TEXT,
+releases INTEGER);
+
+INSERT INTO side_projects VALUES (1, "RM", 3);
+INSERT INTO side_projects VALUES (2, "Agust D", 3);
+INSERT INTO side_projects VALUES (3, "Wonho", 9);
+INSERT INTO side_projects VALUES (4, "Joohoney", 3);
+INSERT INTO side_projects VALUES (5, "illion", 2);
+INSERT INTO side_projects VALUES (6, "The Ditches", 2);
+
+SELECT singers.stage_name, singers.real_name, groups.group_name, side_projects.project_name
+FROM singers
+JOIN groups
+ON singers.group_id=groups.id
+JOIN side_projects
+ON singers.project_id=side_projects.id;
+
+SELECT singers.stage_name, groups.genre
+FROM singers
+LEFT OUTER JOIN groups 
+ON singers.group_id=groups.id;
+
+SELECT singers.stage_name, side_projects.project_name, side_projects.releases
+FROM singers
+JOIN side_projects
+ON singers.project_id=side_projects.id;
