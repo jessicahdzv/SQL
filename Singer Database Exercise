@@ -1,3 +1,4 @@
+--First table: Singer Information
 CREATE TABLE singers (id INTEGER PRIMARY KEY AUTOINCREMENT,
 stage_name TEXT,
 real_name TEXT,
@@ -13,6 +14,7 @@ INSERT INTO singers VALUES (5,"Noda Yojiro", "none", "Japan", 3,5);
 INSERT INTO singers VALUES (6,"Sam McTrusty", "none", "Scotland", 4,0);
 INSERT INTO singers VALUES (7,"Derek Sanders", "none", "USA", 5,6);
 
+--Second Table: Music Group Information
 CREATE TABLE groups (id INTEGER PRIMARY KEY,
 group_name TEXT,
 genre TEXT);
@@ -23,6 +25,7 @@ INSERT INTO groups VALUES (3, "Radwimps", "rock");
 INSERT INTO groups VALUES (4, "Twin Atlantic", "rock");
 INSERT INTO groups VALUES (5, "Mayday Parade", "pop punk");
 
+--Third Table: Side Project Information
 CREATE TABLE side_projects (id INTEGER PRIMARY KEY,
 project_name TEXT,
 releases INTEGER);
@@ -34,6 +37,7 @@ INSERT INTO side_projects VALUES (4, "Joohoney", 3);
 INSERT INTO side_projects VALUES (5, "illion", 2);
 INSERT INTO side_projects VALUES (6, "The Ditches", 2);
 
+--Joining First and Second Tables to Show Singers' Real and Stage Names Side by Side
 SELECT singers.stage_name, singers.real_name, groups.group_name, side_projects.project_name
 FROM singers
 JOIN groups
@@ -41,11 +45,13 @@ ON singers.group_id=groups.id
 JOIN side_projects
 ON singers.project_id=side_projects.id;
 
+--Joining First and Second Tables to Show Singers' Music Genre
 SELECT singers.stage_name, groups.genre
 FROM singers
 LEFT OUTER JOIN groups 
 ON singers.group_id=groups.id;
 
+--Joining First and Third Tables to Show Singers' Number of Side Project Releases
 SELECT singers.stage_name, side_projects.project_name, side_projects.releases
 FROM singers
 JOIN side_projects
