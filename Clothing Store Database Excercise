@@ -1,3 +1,5 @@
+--In this code, I am querying data from a clothing store database.
+
 --create clothing store database
 CREATE TABLE clothing (id INTEGER PRIMARY KEY, name TEXT, quantity INTEGER, aisle INTEGER, price INTEGER);
 INSERT INTO clothing VALUES (1, "tshirts", 35, 3, 2);
