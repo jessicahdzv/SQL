@@ -1,48 +1,30 @@
-SELECT * FROM BIT_DB.customers
-WHERE length(order_id) = 6
-AND order_id <> 'Order ID';
+--In this code, I am querying data from multiple tables to answer specific questions regarding a sales database.
 
-SELECT * FROM BIT_DB.JanSales LIMIT 20;
-
-SELECT * FROM BIT_DB.JanSales;
-
+--How many orders were placed in January?
 SELECT COUNT(*) FROM BIT_DB.JanSales
 WHERE length(orderID) = 6
 AND orderID <> 'Order ID';
 
+--How many of those orders were for an iPhone?
 SELECT COUNT(*) FROM BIT_DB.JanSales
 WHERE Product='iPhone';
 
-SELECT acctnum FROM BIT_DB.customers
-    JOIN BIT_DB.FebSales
-    ON BIT_DB.customers.order_id= BIT_DB.FebSales.orderID;
-    
+ --Which product was the cheapest one sold in January, and what was the price?    
 SELECT Product, price FROM BIT_DB.JanSales
 ORDER BY price asc
 LIMIT 1;
 
+--What is the total revenue for each product sold in January?
 SELECT SUM(quantity)*price as revenue FROM BIT_DB.JanSales
 GROUP BY Product;
 
-SELECT * FROM BIT_DB.FebSales;
+--Which products were sold in February at 548 Lincoln St, Seattle, WA 98101, how many of each were sold, and what was the total revenue?
 SELECT * FROM BIT_DB.FebSales
 WHERE location IN ('548 Lincoln St, Seattle, WA 98101');
+
 SELECT SUM(quantity)*price as revenue FROM BIT_DB.FebSales
 WHERE location IN ('548 Lincoln St, Seattle, WA 98101');
 
 SELECT COUNT(BIT_DB.customers.acctnum),AVG(BIT_DB.FebSales.price) FROM BIT_DB.customers
     JOIN BIT_DB.FebSales
     ON BIT_DB.customers.order_id=BIT_DB.FebSales.orderID;
-    
-SELECT SUM(Quantity), Product, SUM(Quantity)*price AS revenue
-FROM BIT_DB.FebSales
-WHERE location = '548 Lincoln St, Seattle, WA 98101'
-GROUP BY Product;
-
-SELECT COUNT(DISTINCT cust.acctnum), AVG(Quantity*price)
-FROM BIT_DB.FebSales Feb
-LEFT JOIN BIT_DB.customers cust
-ON Feb.orderID=cust.order_id
-WHERE Feb.Quantity>2
-AND length(orderID) = 6
-AND orderID <> 'OrderID';
