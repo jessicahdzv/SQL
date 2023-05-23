@@ -28,3 +28,8 @@ WHERE location IN ('548 Lincoln St, Seattle, WA 98101');
 SELECT COUNT(BIT_DB.customers.acctnum),AVG(BIT_DB.FebSales.price) FROM BIT_DB.customers
     JOIN BIT_DB.FebSales
     ON BIT_DB.customers.order_id=BIT_DB.FebSales.orderID;
+
+--List all of the products sold in Los Angeles in February, and include how many of each were sold.
+SELECT Product, SUM(Quantity) FROM BIT_DB.FebSales
+WHERE location LIKE '%Los Angeles%'
+GROUP BY Product;
