@@ -33,3 +33,25 @@ SELECT COUNT(BIT_DB.customers.acctnum),AVG(BIT_DB.FebSales.price) FROM BIT_DB.cu
 SELECT Product, SUM(Quantity) FROM BIT_DB.FebSales
 WHERE location LIKE '%Los Angeles%'
 GROUP BY Product;
+
+--How many of each type of headphone were sold in February?
+SELECT Product, SUM(Quantity)
+FROM BIT_DB.FebSales
+WHERE Product LIKE '%Headphone%'
+GROUP BY Product;
+
+--What was the average amount spent per account in February? 
+SELECT SUM(price*quantity)/COUNT(c.acctnum)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers c
+ON Feb.orderID=c.order_id
+WHERE length(orderID)=6
+AND orderID<>'Order Id';
+
+--What was the average quantity of products purchased per account in February?
+SELECT SUM(quantity)/COUNT(c.acctnum)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers c
+ON Feb.orderID=c.order_id
+WHERE length(orderID)=6
+AND orderID<>'Order Id';
