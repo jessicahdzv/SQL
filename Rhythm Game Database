@@ -1,0 +1,25 @@
+--In this project, I query information from a rhythm game database.
+
+--Create a table for the game
+CREATE TABLE rhythm_hive (
+id INTEGER PRIMARY KEY,
+artist TEXT,
+song TEXT,
+difficulty TEXT,
+playerscore INTEGER);
+
+INSERT INTO rhythm_hive VALUES (1,'BTS', 'Dope', 'medium', 1200350);
+INSERT INTO rhythm_hive VALUES (2, 'TXT', 'New Rules', 'easy', 520035);
+INSERT INTO rhythm_hive VALUES (3, 'Enhypen', 'Blessed-Cursed', 'hard', 345010954);
+INSERT INTO rhythm_hive VALUES (4,'BTS','Autumn Leaves','easy', 325621);
+
+--Here, I update the table to correct the title for the song with id of 1 and run the table to ensure table updated correctly.
+
+UPDATE rhythm_hive SET song='Idol' WHERE id=1;
+
+SELECT * FROM rhythm_hive;
+
+--In this query, I delete a row from the table and run it to ensure the row was removed.
+DELETE FROM rhythm_hive WHERE id=4;
+
+SELECT * FROM rhythm_hive;
