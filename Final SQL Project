@@ -1,0 +1,125 @@
+--In this code, I query information from a digital media database to answer sepcific questions regarding its data.
+
+--Show Customers (their full names, customer ID, and country) who are not in the US.
+SELECT FirstName, LastName, CustomerID, country 
+FROM chinook.customers
+WHERE Country <> 'USA'
+
+--Show only the Customers from Brazil.
+SELECT FirstName, LastName, CustomerID
+FROM chinook.customers
+WHERE country='Brazil';
+
+--Find the Invoices of customers who are from Brazil. The resulting table should show the customer's full name, Invoice ID, Date of the invoice, and billing country.
+SELECT customers.FirstName, customers.LastName, invoices.InvoiceId, invoices.InvoiceDate, invoices.BillingCountry
+FROM chinook.customers
+JOIN chinook.invoices
+ON customers.CustomerId=invoices.CustomerId
+WHERE Country='Brazil';
+
+--Show the Employees who are Sales Agents.
+SELECT EmployeeId, FirstName, LastName
+FROM chinook.employees
+WHERE Title='Sales Support Agent';
+
+--Find a unique/distinct list of billing countries from the Invoice table.
+SELECT DISTINCT BillingCountry 
+FROM chinook.invoices;
+
+--Provide a query that shows the invoices associated with each sales agent. The resulting table should include the Sales Agent's full name.
+SELECT employees.FirstName, employees.LastName, invoices.InvoiceId
+FROM chinook.employees
+JOIN chinook.customers
+ON employees.EmployeeId=customers.SupportRepId
+JOIN chinook.invoices
+ON customers.CustomerId=invoices.CustomerId;
+
+--How many Invoices were there in 2009?
+SELECT COUNT(InvoiceId) 
+FROM chinook.invoices
+WHERE InvoiceDate LIKE '2009%';
+
+--What are the total sales for 2009?
+SELECT ROUND(SUM(Total),2)
+FROM chinook.invoices
+WHERE InvoiceDate LIKE '2009%';
+
+--Write a query that includes the purchased track name with each invoice line ID.
+SELECT tracks.TrackId, tracks.Name, invoice_items.InvoiceLineId
+FROM chinook.tracks
+JOIN chinook.invoice_items
+ON tracks.TrackId=invoice_items.TrackId;
+
+--Write a query that includes the purchased track name AND artist name with each invoice line ID.
+SELECT tracks.TrackId, tracks.Name, artists.Name AS Artist, invoice_items.InvoiceLineId
+FROM chinook.tracks
+JOIN chinook.albums
+ON tracks.AlbumId=albums.AlbumId
+JOIN chinook.artists
+ON albums.ArtistId=artists.ArtistId
+JOIN chinook.invoice_items
+ON tracks.TrackId=invoice_items.TrackId
+ORDER BY artists.Name;
+
+--Provide a query that shows all the Tracks, and include the Album name, Media type, and Genre.
+SELECT tracks.Name AS Track, albums.Title AS Album, media_types.Name AS Media_Type, genres.Name AS Genre
+FROM chinook.tracks
+JOIN chinook.albums
+ON tracks.AlbumId=albums.AlbumId
+JOIN chinook.media_types
+ON tracks.MediaTypeId=media_types.MediaTypeId
+JOIN chinook.genres
+ON tracks.GenreId=genres.GenreId;
+
+--Show the total sales made by each sales agent.
+SELECT employees.FirstName, employees.LastName, ROUND(SUM(Invoices.Total),2)
+FROM chinook.employees
+JOIN chinook.customers
+ON employees.EmployeeId=customers.SupportRepId
+JOIN chinook.invoices
+ON customers.CustomerId=invoices.CustomerId
+GROUP BY employees.EmployeeId;
+
+--Show the most common media type.
+SELECT media_types.Name, COUNT(media_types.Name) 
+FROM chinook.media_types
+JOIN chinook.tracks
+ON media_types.MediaTypeId=tracks.MediaTypeId
+GROUP BY media_types.Name
+ORDER BY COUNT(media_types.Name) DESC LIMIT 1;
+
+--Which employee has worked the longest?
+SELECT FirstName, LastName, HireDate
+FROM chinook.employees
+ORDER BY HireDate ASC LIMIT 1;
+
+--What is the title of the shortest working employess?
+SELECT FirstName, LastName,Title, HireDate
+FROM chinook.employees
+ORDER BY HireDate DESC LIMIT 1;
+
+--Show the most popular artist from the playlist.
+SELECT DISTINCT artists.Name, COUNT(artists.Name)
+FROM chinook.artists
+JOIN chinook.albums
+ON artists.ArtistId=albums.ArtistId
+JOIN chinook.tracks 
+ON albums.AlbumId=tracks.AlbumId
+JOIN chinook.playlist_track
+ON tracks.TrackId=playlist_track.TrackId
+GROUP BY artists.Name
+ORDER BY COUNT(artists.Name) DESC LIMIT 1;
+
+--List all the tracks by Creedence Clearwater Revival.
+SELECT tracks.Name
+FROM chinook.tracks
+JOIN chinook.albums
+ON tracks.AlbumId=albums.AlbumId
+JOIN chinook.artists
+ON albums.ArtistId=artists.ArtistId
+WHERE artists.Name='Creedence Clearwater Revival';
+
+--Who is the composer for "Everlong" by Foo Fighters?
+SELECT Name, Composer
+FROM chinook.tracks
+WHERE Name='Everlong';
